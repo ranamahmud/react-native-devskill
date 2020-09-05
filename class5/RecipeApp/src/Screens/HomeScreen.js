@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, TextInput, Dimensions } from 'react-native';
 import Card from '../components/Card';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import {useState} from 'react'
 export default function HomeScreen({ navigation }) {
+  const [list, setList] = useState(RECIPES);
 
   const renderRecipeItem = ({ item, index }) => {
     return (
@@ -63,6 +64,14 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
+  const searchFilterFunction = (text) =>{
+    console.log('text',text);
+    const filteredList = RECIPES.filter((item) =>{
+      const itemData = item.name.toUpperCase();
+      const userTypeData = text.toUpperCase();
+
+    });
+  }
   return (
     <SafeAreaView style={styles.container}>
       {/* <FlatList data={RECIPES}
@@ -112,7 +121,7 @@ export default function HomeScreen({ navigation }) {
             padding: 10,
             marginTop: 20,
             marginHorizontal: 20,
-          }} />
+          }} onChangeText={text => searchFilterFunction(text)}/>
         <FlatList data={RECIPES}
           renderItem={renderRecipeItem}
           keyExtractor={(item) => item.name}
